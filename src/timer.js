@@ -1,20 +1,23 @@
 import {useEffect, useState} from "react";
 
 function Timer() {
-    const [count, setCount] = useState(0);
+    const [seconds, setSeconds] = useState(60)
 
     useEffect(() => {
-        document.title = `You clicked ${count} time`;
-    });
+    const timer = setInterval(() => {
+        if (seconds > 0) {
+            setSeconds(seconds - 1);
+        }
+    }, 1000)
 
-    return (
-        <div>
-            <p>You clicked {count} time</p>
-            <button onClick={() => setCount(count + 1)}>
-                click
-            </button>
-        </div>
-    );
+    return () => clearInterval(timer)
+}, [seconds]);
+
+return (
+    <div className="timer">
+        <p className="timer">{seconds}</p>
+    </div>
+);
 }
 
 export default Timer;
